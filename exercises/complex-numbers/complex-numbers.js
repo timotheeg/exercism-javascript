@@ -1,46 +1,87 @@
-//
-// This is only a SKELETON file for the 'Complex Numbers' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
-
 export class ComplexNumber {
-  constructor() {
-    throw new Error("Remove this statement and implement this function");
+  constructor(real, imag) {
+    this.r = real;
+    this.i = imag;
+
+    // fixes issue with -0
+    // see https://stackoverflow.com/a/53135516/361295
+    if (this.r == 0) this.r = 0;
+    if (this.i == 0) this.i = 0;
   }
 
   get real() {
-    throw new Error("Remove this statement and implement this function");
+    return this.r;
   }
 
   get imag() {
-    throw new Error("Remove this statement and implement this function");
+    return this.i;
   }
 
-  add() {
-    throw new Error("Remove this statement and implement this function");
+  add(cpx) {
+    // (a + i * b) + (c + i * d) = (a + c) + (b + d) * i
+    return new ComplexNumber(this.r + cpx.r, this.i + cpx.i);
   }
 
-  sub() {
-    throw new Error("Remove this statement and implement this function");
+  sub(cpx) {
+    // (a + i * b) - (c + i * d) = (a - c) + (b - d) * i
+    return new ComplexNumber(this.r - cpx.r, this.i - cpx.i);
   }
 
-  div() {
-    throw new Error("Remove this statement and implement this function");
+  recip() {
+    // 1 / (a + i * b) = a/(a^2 + b^2) - b/(a^2 + b^2) * i
+    const a = this.r;
+    const b = this.i;
+
+    const a2b2 = a*a + b*b;
+
+    return new ComplexNumber(a / a2b2, -b / a2b2);
   }
 
-  mul() {
-    throw new Error("Remove this statement and implement this function");
+  mul(cpx) {
+    // (a + i * b) * (c + i * d) = (a * c - b * d) + (b * c + a * d) * i
+    const a = this.r;
+    const b = this.i;
+    const c = cpx.r;
+    const d = cpx.i;
+
+    return new ComplexNumber(a*c - b*d, b*c + a*d);
   }
 
-  abs() {
-    throw new Error("Remove this statement and implement this function");
+  div(cpx) {
+    // (a + i * b) / (c + i * d) = (a * c + b * d)/(c^2 + d^2) + (b * c - a * d)/(c^2 + d^2) * i
+    const a = this.r;
+    const b = this.i;
+    const c = cpx.r;
+    const d = cpx.i;
+
+    const c2d2 = c*c + d*d
+
+    return new ComplexNumber((a*c + b*d) / c2d2, (b*c - a*d) / c2d2);
   }
 
-  conj() {
-    throw new Error("Remove this statement and implement this function");
+  get abs() {
+    // a + b * i => sqrt(a^2 + b^2)
+    const a = this.r;
+    const b = this.i;
+
+    return Math.sqrt(a*a + b*b);
   }
 
-  exp() {
-    throw new Error("Remove this statement and implement this function");
+  get conj() {
+    // a + b * i => a - b * i
+
+    return new ComplexNumber(this.r, -this.i);
+  }
+
+  get exp() {
+    // e^(a + i * b) = e^a * e^(i * b) = e^a * (cos(b) + i * sin(b))
+    const a = this.r;
+    const b = this.i;
+
+    const ea = Math.exp(a);
+    const cosb = Math.cos(b)
+    const sinb = Math.sin(b)
+
+    return new ComplexNumber(ea * cosb, ea * sinb);
   }
 }

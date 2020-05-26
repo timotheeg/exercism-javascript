@@ -1,18 +1,27 @@
-//
-// This is only a SKELETON file for the 'Grade School' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
-
 export class GradeSchool {
+  constructor() {
+  	this.db = new Map();
+  }
+
   roster() {
-    throw new Error("Remove this statement and implement this function");
+  	const res = {};
+
+  	for (const [key, value] of this.db.entries()) {
+  		res[key] = [ ...value ];
+  	}
+
+  	return res;
   }
 
-  add() {
-    throw new Error("Remove this statement and implement this function");
+  add(student, level) {
+  	let list = this.db.get(level) || [];
+
+  	list.push(student);
+
+  	this.db.set(level, list.sort());
   }
 
-  grade() {
-    throw new Error("Remove this statement and implement this function");
+  grade(level) {
+    return [ ...(this.db.get(level) || []) ];
   }
 }

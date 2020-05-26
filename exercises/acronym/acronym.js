@@ -1,8 +1,8 @@
-//
-// This is only a SKELETON file for the 'Acronym' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+const WORD_RE = /[a-z']+/ig;
 
-export const parse = () => {
-  throw new Error("Remove this statement and implement this function");
+export const parse = (input) => {
+	return input
+		.match(WORD_RE)
+		.map(w => w[0].toUpperCase())
+		.join('');
 };

@@ -1,8 +1,29 @@
-//
-// This is only a SKELETON file for the 'Matching Brackets' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+const matches = {
+	'}': '{',
+	']': '[',
+	')': '('
+};
 
-export const isPaired = () => {
-  throw new Error("Remove this statement and implement this function");
+export const isPaired = (input) => {
+	const stack = [];
+
+	for (let idx=0; idx<input.length; idx++) {
+		const l = input[idx];
+
+		switch (l) {
+			case '{':
+			case '[':
+			case '(':
+				stack.push(l);
+				break;
+			case '}':
+			case ']':
+			case ')':
+				if (stack.pop() !== matches[l]) {
+					return false;
+				}
+		}
+	}
+
+	return stack.length === 0;
 };

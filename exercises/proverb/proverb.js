@@ -1,8 +1,20 @@
-//
-// This is only a SKELETON file for the 'Proverb' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+function peek(arr) {
+	return arr[arr.length - 1];
+}
 
-export const proverb = () => {
-  throw new Error("Remove this statement and implement this function");
+export const proverb = (...terms) => {
+	let res = '';
+	let qualifier;
+
+	if (peek(terms).qualifier) {
+		qualifier = terms.pop().qualifier;
+	}
+
+	for (let idx=0; idx<terms.length-1; idx++) {
+		res += `For want of a ${terms[idx]} the ${terms[idx+1]} was lost.\n`;
+	}
+
+	res += `And all for the want of a ${qualifier ? `${qualifier} ` : ''}${terms[0]}.`;
+
+	return res;
 };

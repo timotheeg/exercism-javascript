@@ -25,3 +25,11 @@ npm-debug.log
 # Ignore yarn lockfile and error, in case someone accidentally runs yarn
 yarn.lock
 yarn-error.log
+
+# For the solution branch
+package.json
+package-lock.json
+.exercism
+*.spec.js
+*.txt
+

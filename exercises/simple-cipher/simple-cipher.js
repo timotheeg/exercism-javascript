@@ -1,22 +1,38 @@
-//
-// This is only a SKELETON file for the 'Simple Cipher' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+const CODE_a = 'a'.charCodeAt(0);
 
 export class Cipher {
-  constructor() {
-    throw new Error("Remove this statement and implement this function");
+  constructor(key='abcdefghijklmnopqrstuvwxyz') {
+    this._plain_key = key;
+    this._key = key.split('').map(c => c.charCodeAt(0) - CODE_a);
   }
 
-  encode() {
-    throw new Error("Remove this statement and implement this function");
+  encode(plain) {
+    let encoded = '';
+
+    for (let idx=0; idx<plain.length; idx++) {
+      let code = plain.charCodeAt(idx) - CODE_a;
+      let offset = this._key[idx % this._key.length];
+
+      encoded += String.fromCharCode(CODE_a + (code + offset) % 26);
+    }
+
+    return encoded;
   }
 
-  decode() {
-    throw new Error("Remove this statement and implement this function");
+  decode(encoded) {
+    let plain = '';
+
+    for (let idx=0; idx<encoded.length; idx++) {
+      let code = encoded.charCodeAt(idx) - CODE_a;
+      let offset = this._key[idx % this._key.length];
+
+      plain += String.fromCharCode(CODE_a + (26 + code - offset) % 26);
+    }
+
+    return plain;
   }
 
   get key() {
-    throw new Error("Remove this statement and implement this function");
+    return this._plain_key;
   }
 }

@@ -1,18 +1,30 @@
-//
-// This is only a SKELETON file for the 'Allergies' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+const ALLERGENS = [
+	'eggs',
+	'peanuts',
+	'shellfish',
+	'strawberries',
+	'tomatoes',
+	'chocolate',
+	'pollen',
+	'cats'
+];
+
+const BITFIELDS = {};
+
+ALLERGENS.forEach((allergen, idx) => {
+	BITFIELDS[allergen] = 1 << idx;
+});
 
 export class Allergies {
-  constructor() {
-    throw new Error("Remove this statement and implement this function");
+  constructor(bitmap) {
+    this.bitmap = bitmap;
   }
 
   list() {
-    throw new Error("Remove this statement and implement this function");
+  	return ALLERGENS.filter(this.allergicTo.bind(this));
   }
 
-  allergicTo() {
-    throw new Error("Remove this statement and implement this function");
+  allergicTo(allergen) {
+  	return !!(this.bitmap & BITFIELDS[allergen]);
   }
 }

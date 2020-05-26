@@ -1,42 +1,60 @@
-//
-// This is only a SKELETON file for the 'List Ops' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
-
 export class List {
-  constructor() {
-    throw new Error("Remove this statement and implement this function");
+  constructor(start_entries=[]) {
+    this._store = [ ...start_entries ];
   }
 
-  append() {
-    throw new Error("Remove this statement and implement this function");
+  get values() {
+    return [ ...this._store ];
   }
 
-  concat() {
-    throw new Error("Remove this statement and implement this function");
+  append(other_list) {
+    this._store.push(...other_list._store);
+    return this;
   }
 
-  filter() {
-    throw new Error("Remove this statement and implement this function");
+  concat(lists) {
+    if (lists instanceof List) {
+      lists = lists._store;
+    }
+    else if (!Array.isArray(lists)) {
+      lists = [ lists ];
+    }
+
+    lists.forEach(entry => {
+      if (entry instanceof List) {
+        this._store.push(...entry._store);
+      }
+      else {
+        this._store.push(entry);
+      }
+    });
+    return this;
   }
 
-  map() {
-    throw new Error("Remove this statement and implement this function");
+  filter(predicate) {
+    this._store = this._store.filter(predicate);
+    return this;
+  }
+
+  map(mapper) {
+    this._store = this._store.map(mapper);
+    return this;
   }
 
   length() {
-    throw new Error("Remove this statement and implement this function");
+    return this._store.length;
   }
 
-  foldl() {
-    throw new Error("Remove this statement and implement this function");
+  foldl(reducer, start_value) {
+    return this._store.reduce(reducer, start_value);
   }
 
-  foldr() {
-    throw new Error("Remove this statement and implement this function");
+  foldr(reducer, start_value) {
+    return this._store.reduceRight(reducer, start_value);
   }
 
   reverse() {
-    throw new Error("Remove this statement and implement this function");
+    this._store.reverse();
+    return this;
   }
 }

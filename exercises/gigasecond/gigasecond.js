@@ -1,8 +1,9 @@
-//
-// This is only a SKELETON file for the 'Gigasecond' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+const GIGA_SECOND = Math.pow(10, 9);
 
-export const gigasecond = () => {
-  throw new Error("Remove this statement and implement this function");
+export const gigasecond = (date) => {
+	const d = new Date(date.getTime());
+
+	d.setSeconds(d.getSeconds() + GIGA_SECOND);
+
+	return d;
 };

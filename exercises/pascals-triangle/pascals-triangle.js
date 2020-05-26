@@ -1,8 +1,23 @@
-//
-// This is only a SKELETON file for the 'Pascals Triangle' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+export const rows = (num) => {
+	const res = [];
 
-export const rows = () => {
-  throw new Error("Remove this statement and implement this function");
+	if (num <= 0) return res;
+
+	let prev = [1];
+
+	res.push(prev);
+
+	for (let row=1; row<num; row++) {
+		const line = [];
+
+		for (let idx=0; idx<=row; idx++) {
+			line.push((prev[idx - 1] || 0) + (prev[idx] || 0));
+		}
+
+		res.push(line);
+
+		prev = line;
+	}
+
+	return res;
 };

@@ -1,11 +1,25 @@
-//
-// This is only a SKELETON file for the 'Grains' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
-export const square = () => {
-  throw new Error("Remove this statement and implement this function");
+export const square = (n) => {
+	if (n <= 0 || n > 64) {
+		throw new Error('square must be between 1 and 64');
+	}
+
+	let total = BigInt(1);
+
+	for (let idx=n-1; idx--;) {
+		total *= 2n;
+	}
+
+	return `${total}`;
 };
 
 export const total = () => {
-  throw new Error("Remove this statement and implement this function");
+	let total = BigInt(1);
+	let board_total = BigInt(1);
+
+	for (let idx=63; idx--;) {
+		total *= 2n;
+		board_total += total;
+	}
+
+	return `${board_total}`;
 };

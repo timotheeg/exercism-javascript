@@ -1,8 +1,26 @@
-//
-// This is only a SKELETON file for the 'Secret Handshake' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+export const commands = (n) => {
+	let shift = 0
+	const res = [];
 
-export const commands = () => {
-  throw new Error("Remove this statement and implement this function");
+	if (n & 1 << shift++) {
+		res.push('wink');
+	}
+
+	if (n & 1 << shift++) {
+		res.push('double blink');
+	}
+
+	if (n & 1 << shift++) {
+		res.push('close your eyes');
+	}
+
+	if (n & 1 << shift++) {
+		res.push('jump');
+	}
+
+	if (n & 1 << shift++) {
+		res.reverse();
+	}
+
+	return res;
 };

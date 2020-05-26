@@ -1,26 +1,37 @@
-//
-// This is only a SKELETON file for the 'Clock' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+const DAY_IN_MINS = 24 * 60;
 
 export class Clock {
-  constructor() {
-    throw new Error('Remove this statement and implement this function');
+  constructor(hours=0, minutes=0) {
+    this.ts = hours * 60 + minutes;
+    this.normalize();
+  }
+
+  normalize() {
+    this.ts = this.ts % DAY_IN_MINS;
+
+    if (this.ts < 0) {
+      this.ts += DAY_IN_MINS;
+    }
   }
 
   toString() {
-    throw new Error('Remove this statement and implement this function');
+    const hours = Math.floor(this.ts / 60);
+    const minutes = this.ts % 60;
+
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
   }
 
-  plus() {
-    throw new Error('Remove this statement and implement this function');
+  plus(minutes) {
+    this.ts += minutes;
+    this.normalize();
+    return this;
   }
 
-  minus() {
-    throw new Error('Remove this statement and implement this function');
+  minus(minutes) {
+    return this.plus(-minutes);
   }
 
-  equals() {
-    throw new Error('Remove this statement and implement this function');
+  equals(clock) {
+    return this.ts == clock.ts;
   }
 }

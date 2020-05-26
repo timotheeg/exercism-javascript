@@ -1,18 +1,27 @@
-//
-// This is only a SKELETON file for the 'Series' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+function toInt(n) {
+	return parseInt(n, 10);
+}
 
 export class Series {
-  constructor() {
-    throw new Error("Remove this statement and implement this function");
+  constructor(input) {
+  	this._digits = input.split('').map(toInt);
   }
 
   get digits() {
-    throw new Error("Remove this statement and implement this function");
+    return [ ...this._digits ];
   }
 
-  slices() {
-    throw new Error("Remove this statement and implement this function");
+  slices(n) {
+  	if (n > this._digits.length) {
+  		throw new Error('Slice size is too big.');
+  	}
+
+  	const slices = [];
+
+  	for (let idx=0; idx<=this._digits.length - n; idx++) {
+  		slices.push(this._digits.slice(idx, idx+n));
+  	}
+
+  	return slices;
   }
 }

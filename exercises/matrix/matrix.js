@@ -1,18 +1,23 @@
-//
-// This is only a SKELETON file for the 'Matrix' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+function toInt(v) {
+	return parseInt(v, 10);
+}
 
 export class Matrix {
-  constructor() {
-    throw new Error("Remove this statement and implement this function");
+  constructor(conf) {
+    this.data = conf.split('\n').map(row => row.split(' ').map(toInt));
   }
 
   get rows() {
-    throw new Error("Remove this statement and implement this function");
+    return this.data;
   }
 
   get columns() {
-    throw new Error("Remove this statement and implement this function");
+    const colums = this.data[0].map(v => [v]);
+
+    for (let ridx = 1; ridx < this.data.length; ridx++) {
+    	this.data[ridx].forEach((v, cidx) => colums[cidx].push(v));
+    }
+
+    return colums
   }
 }

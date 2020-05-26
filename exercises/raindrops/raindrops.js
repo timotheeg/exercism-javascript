@@ -1,8 +1,17 @@
-//
-// This is only a SKELETON file for the 'Raindrops' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+export const convert = (n) => {
+	let res = '';
 
-export const convert = () => {
-  throw new Error("Remove this statement and implement this function");
+	if (n % 3 === 0) {
+		res += 'Pling';
+	}
+
+	if (n % 5 === 0) {
+		res += 'Plang';
+	}
+
+	if (n % 7 === 0) {
+		res += 'Plong';
+	}
+
+	return res || `${n}`;
 };
