@@ -1,8 +1,13 @@
-//
-// This is only a SKELETON file for the 'Armstrong Numbers' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+export const isArmstrongNumber = (n) => {
+	const digits = [];
 
-export const isArmstrongNumber = () => {
-  throw new Error("Remove this statement and implement this function");
+	let remainder = n;
+
+	while (remainder) {
+		const digit = remainder % 10;
+		digits.push(digit);
+		remainder = (remainder - digit) / 10;
+	}
+
+	return n === digits.reduce((sum, d) => sum + Math.pow(d, digits.length), 0);
 };

@@ -1,42 +1,58 @@
-//
-// This is only a SKELETON file for the 'D&D Character' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+export const abilityModifier = (n) => {
+	if (n < 3) throw new Error('Ability scores must be at least 3');
+	if (n > 18) throw new Error('Ability scores can be at most 18');
 
-export const abilityModifier = () => {
-  throw new Error("Remove this statement and implement this function");
+	return Math.floor((n - 10) / 2);
 };
 
+
 export class Character {
-  static rollAbility() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	constructor() {
+		this._strength = Character.rollAbility();
+		this._dexterity = Character.rollAbility();
+		this._constitution = Character.rollAbility();
+		this._intelligence = Character.rollAbility();
+		this._wisdom = Character.rollAbility();
+		this._charisma = Character.rollAbility();
 
-  get strength() {
-    throw new Error("Remove this statement and implement this function");
-  }
+		this._const_modifier = abilityModifier(this._constitution);
+		this._hitpoints = 10 + this._const_modifier;
+	}
 
-  get dexterity() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	static rollAbility() {
+		return Array(4)
+			.fill(0)
+			.map(_ => 1 + Math.floor(Math.random() * 6))
+			.sort((a, b) => b - a)
+			.slice(0, 3)
+			.reduce((sum, val) => sum + val, 0);
+	}
 
-  get constitution() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	get strength() {
+		return this._strength;
+	}
 
-  get intelligence() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	get dexterity() {
+		return this._dexterity;
+	}
 
-  get wisdom() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	get constitution() {
+		return this._constitution;
+	}
 
-  get charisma() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	get intelligence() {
+		return this._intelligence;
+	}
 
-  get hitpoints() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	get wisdom() {
+		return this._wisdom;
+	}
+
+	get charisma() {
+		return this._charisma;
+	}
+
+	get hitpoints() {
+		return this._hitpoints;
+	}
 }
