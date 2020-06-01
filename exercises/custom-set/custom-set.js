@@ -1,46 +1,61 @@
-//
-// This is only a SKELETON file for the 'Custom Set' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
-
 export class CustomSet {
-  constructor() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	constructor(entries) {
+		this._store = new Set(entries);
+	}
 
-  empty() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	empty() {
+		return this._store.size <= 0;
+	}
 
-  contains() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	contains(entry) {
+		return this._store.has(entry);
+	}
 
-  add() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	add(entry) {
+		this._store.add(entry);
+		return this;
+	}
 
-  subset() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	subset(other_set) {
+		return this.difference(other_set).empty();
+	}
 
-  disjoint() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	disjoint(other_set) {
+		return this.intersection(other_set).empty();
+	}
 
-  eql() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	eql(other_set) {
+		return this.subset(other_set) && other_set.subset(this);
+	}
 
-  union() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	union(other_set) {
+		return new CustomSet([
+			...this._store,
+			...other_set._store
+		]);
+	}
 
-  intersection() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	intersection(other_set) {
+		const entries = [];
 
-  difference() {
-    throw new Error("Remove this statement and implement this function");
-  }
+		for (let entry of this._store) {
+			if (other_set.contains(entry)) {
+				entries.push(entry);
+			}
+		}
+
+		return new CustomSet(entries);
+	}
+
+	difference(other_set) {
+		const entries = [];
+
+		for (let entry of this._store) {
+			if (!other_set.contains(entry)) {
+				entries.push(entry);
+			}
+		}
+
+		return new CustomSet(entries);
+	}
 }

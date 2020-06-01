@@ -1,10 +1,23 @@
-//
-// This is only a SKELETON file for the 'Pig Latin' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+const VOWEL_LIKE = /^([aeiou]|xr|yt)/
+const CONSONANT_GROUP = /^(s?ch|s?qu|thr?|rh|[bcdfghjklmnpqrstvwxyz])/
 
 export class translator {
-  static translate() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	static translate(phrase) {
+		return phrase
+			.split(' ')
+			.map(translator.translateWord)
+			.join(' ');
+	}
+
+	static translateWord(word) {
+		if (VOWEL_LIKE.test(word)) {
+			return `${word}ay`;
+		}
+
+		let m = word.match(CONSONANT_GROUP);
+
+		if (m) {
+			return `${word.replace(CONSONANT_GROUP, '')}${m[1]}ay`
+		}
+	}
 }

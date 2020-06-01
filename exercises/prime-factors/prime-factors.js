@@ -1,31 +1,32 @@
-export const primeFactors = (n) => {
-	const factors = [];
-	let remainder = n;
+export const primeFactors = (num) => {
+	const final_factors = [];
 
-	outer:
-	while(remainder > 1) {
-		// special treatment for even numbers
-		if (remainder % 2 === 0) {
-			factors.push(2);
-			remainder /= 2;
-			continue;
-		}
+	let remainder = num;
 
-		const sqrt = Math.ceil(Math.sqrt(remainder));
+	do {
+		const sqrt = Math.sqrt(remainder);
 
+		const factors = [];
+		let factor = 1;
 
-		for (let factor=3; factor<=sqrt; factor+=2) {
+		// find first factor
+		while(++factor <= sqrt) {
 			if (remainder % factor === 0) {
 				factors.push(factor);
 				remainder /= factor;
-				continue outer;
+				break;
 			}
 		}
 
-		// remainder is prime, push it
-		factors.push(remainder);
-		break;
-	}
+		if (n <= 1 || !factors.length) {
+			final_factors.push(...factors)
+		}
 
-	return factors;
+
+
+		if (n <= 1) {
+			return final_factors;
+		}
+	}
+	while(true);
 };

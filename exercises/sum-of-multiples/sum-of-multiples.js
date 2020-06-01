@@ -1,8 +1,14 @@
-//
-// This is only a SKELETON file for the 'Sum Of Multiples' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+export const sum = (factors, limit) => {
+	let sum = 0;
 
-export const sum = () => {
-  throw new Error("Remove this statement and implement this function");
+	for (let num=0; num<limit; num++) {
+		for (let factor of factors) {
+			if (num % factor === 0) {
+				sum += num;
+				break;
+			}
+		}
+	}
+
+	return sum;
 };
