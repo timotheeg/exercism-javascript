@@ -1,5 +1,5 @@
 const VOWEL_LIKE = /^([aeiou]|xr|yt)/
-const CONSONANT_GROUP = /^(s?ch|s?qu|thr?|rh|[bcdfghjklmnpqrstvwxyz])/
+const CONSONANT_GROUP = /^(s?ch|s?qu|thr?|rh|[bcdfghjklmnpqrstvwxyz])(.*)$/
 
 export class translator {
 	static translate(phrase) {
@@ -17,7 +17,7 @@ export class translator {
 		let m = word.match(CONSONANT_GROUP);
 
 		if (m) {
-			return `${word.replace(CONSONANT_GROUP, '')}${m[1]}ay`
+			return `${m[2]}${m[1]}ay`;
 		}
 	}
 }
