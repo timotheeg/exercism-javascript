@@ -3,13 +3,13 @@ export const primes = (n) => {
 	// using the Sieve of Eratosthenes
 	// https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
 
-	const list = Array(n).fill().map((_, idx) => idx + 1);
-
 	if (n < 2) return [];
+
+	const list = Array(n).fill().map((_, idx) => idx + 1);
 
 	function getFirstNonNullAfter(idx) {
 		do {
-			if (list[idx++] !== null) return idx;
+			if (list[idx++]) return idx;
 		}
 		while(idx < list.length)
 	}
@@ -26,11 +26,11 @@ export const primes = (n) => {
 	let walk = 1;
 
 	while (walk < list.length) {
-		const base = getFirstNonNullAfter(walk);
+		const prime = getFirstNonNullAfter(walk);
 
-		clearMultiplesOf(base);
+		clearMultiplesOf(prime);
 
-		walk = base;
+		walk = prime;
 	}
 
 	return list.filter(_ => _).slice(1);

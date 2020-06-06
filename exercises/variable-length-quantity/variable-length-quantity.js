@@ -1,12 +1,47 @@
-//
-// This is only a SKELETON file for the 'Variable Length Quantity' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+export const encode = (ints) => {
+	const res = [];
 
-export const encode = () => {
-  throw new Error("Remove this statement and implement this function");
+	ints.forEach(int => {
+		let bytes = [];
+
+		do {
+			let byte = int & 0x7F;
+
+			if (bytes.length) byte |= 0x80;
+
+			bytes.unshift(byte);
+			int >>>= 7;
+		}
+		while (int);
+
+		res.push(...bytes);
+	});
+
+	return res;
 };
 
-export const decode = () => {
-  throw new Error("Remove this statement and implement this function");
+export const decode = (bytes) => {
+	const res = [];
+	let seq = 0;
+	let current = 0;
+
+	bytes.forEach(byte => {
+		if (seq) {
+			current <<= 7;
+		}
+
+		current |= (byte & 0x7F);
+
+		if (byte & 0x80) {
+			seq++;
+		}
+		else {
+			res.push(current >>> 0); // converts to unsigned int
+			current = seq = 0;
+		}
+	});
+
+	if (seq) throw new Error('Incomplete sequence');
+
+	return res;
 };

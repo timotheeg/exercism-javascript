@@ -1,12 +1,18 @@
-//
-// This is only a SKELETON file for the 'Strain' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+function bins(arr, predicate) {
+	const fits = [];
+	const misfits = [];
 
-export const keep = () => {
-  throw new Error("Remove this statement and implement this function");
+	arr.forEach(elmt => {
+		(predicate(elmt) ? fits : misfits).push(elmt);
+	});
+
+	return { fits, misfits };
+}
+
+export const keep = (arr, predicate) => {
+	return bins(arr, predicate).fits;
 };
 
-export const discard = () => {
-  throw new Error("Remove this statement and implement this function");
+export const discard = (arr, predicate) => {
+	return bins(arr, predicate).misfits;
 };

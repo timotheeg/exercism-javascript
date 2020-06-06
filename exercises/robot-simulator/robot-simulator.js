@@ -1,52 +1,70 @@
-//
-// This is only a SKELETON file for the 'Robot Simulator' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+const BEARINGS = ['east', 'south', 'west', 'north'];
+const MOVES = {
+	east:  [ 1,  0],
+	west:  [-1,  0],
+	north: [ 0,  1],
+	south: [ 0, -1],
+};
+const INSTRUCTIONS = {
+	R: 'turnRight',
+	L: 'turnLeft',
+	A: 'advance',
+};
 
-export class InvalidInputError extends Error {
-  constructor() {
-    throw new Error("Remove this statement and implement this function");
-  }
-}
+export class InvalidInputError extends Error {}
 
 export class Robot {
-  orient() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	orient(bearing) {
+		if (!BEARINGS.includes(bearing)) {
+			throw new InvalidInputError();
+		}
 
-  get bearing() {
-    throw new Error("Remove this statement and implement this function");
-  }
+		this.setBearingIndex(BEARINGS.indexOf(bearing));
+	}
 
-  get coordinates() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	get bearing() {
+		return this._bearing;
+	}
 
-  turnRight() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	get coordinates() {
+		return this._coordinates;
+	}
 
-  turnLeft() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	setBearingIndex(idx) {
+		this._bearing_idx = (idx + BEARINGS.length) % BEARINGS.length;
+		this._bearing = BEARINGS[this._bearing_idx];
+		this._move = MOVES[this._bearing];
+	}
 
-  at() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	turnRight() {
+		this.setBearingIndex(this._bearing_idx + 1);
+	}
 
-  advance() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	turnLeft() {
+		this.setBearingIndex(this._bearing_idx - 1);
+	}
 
-  instructions() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	at(x, y) {
+		this._coordinates = [x, y];
+	}
 
-  place() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	advance() {
+		this.at(
+			this._coordinates[0] + this._move[0],
+			this._coordinates[1] + this._move[1]
+		)
+	}
 
-  evaluate() {
-    throw new Error("Remove this statement and implement this function");
-  }
+	static instructions(sequence) {
+		return sequence.split('').map(I => INSTRUCTIONS[I]);
+	}
+
+	place({x=0, y=0, direction='east'}) {
+		this.at(x, y);
+		this.orient(direction);
+	}
+
+	evaluate(sequence) {
+		Robot.instructions(sequence).forEach(method => this[method]());
+	}
 }
